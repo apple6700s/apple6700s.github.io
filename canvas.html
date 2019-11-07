@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>canvas绘制图片</title>
+    <style>
+         canvas{
+              border:1px solid #aaa
+         }
+    </style>
+</head>
+<body>
+     <!-- <img src="./u=2994303401,877800433&fm=27&gp=0.jpg" alt=""> -->
+     <canvas width="800" height="600">
+
+    </canvas>
+     <script>
+          var myCanvas = document.querySelector('canvas');
+          var ctx = myCanvas.getContext('2d');
+          //加载图片到内存即可
+          // var img = document.createElement('img')
+          // img.src = './u=2994303401,877800433&fm=27&gp=0.jpg'
+          var image = new Image(); //创建image对象
+          //必须通过图片加载完毕，绑定加载完成事件
+          image.onload = function(){
+          //这里一定可以拿到
+              //实现图片绘制
+              console.log(image)
+              //绘制图片的三种方式
+              //1
+              // ctx.drawImage(image,100,100);//图片对象，绘制在画布上面的坐标x,y
+              //2
+              // ctx.drawImage(image,100,100,100,100)  //加上缩放
+              //3 参数：图片上定位的坐标；在图片上截取多大的区域；绘制在画布上面的坐标；图片的大小
+              // ctx.drawImage(image,400,400,400,400,200,200,200,200)
+              var imageWidth = image.width;//获取当前图片的尺寸
+              var imageHeight = image.height;
+              var personWidth = imageWidth/4; //小人的宽高
+              var personHeight = imageHeight/4;
+              //帧动画，在固定的时间间隔更新显示的图片，根据图片的索引
+              var index = 0;
+              //绘制在画布的正中心
+              //图片绘制的起始点
+              var x0 =ctx.canvas.width/2 - personWidth/2;  //小人的起始位置
+              var y0 = ctx.canvas.height/2 - personHeight/2;
+              ctx.drawImage(image,0,0,personWidth,personWidth,x0,y0,personWidth,personWidth);
+              setInterval(function(){
+                  index++;
+                  ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height)
+                  ctx.drawImage(image,index*personWidth,0,personWidth,personWidth,x0+index,y0,personWidth,personWidth);
+                   if(index>=3){
+                       index =0;
+                   }
+              },100);
+          }
+          //设置图片路径
+          image.src='./1.jpg'
+
+     </script>
+</body>
+</html>
+————————————————
+版权声明：本文为CSDN博主「Amanda_wmy」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/Amanda_wmy/article/details/81331606
