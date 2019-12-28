@@ -88,7 +88,8 @@
       }
       const constraints = {
         video: true,  //打开摄像头
-        audio: false  //打开录音
+        audio: false,  //打开录音
+        sourceId: 1 //0为前置摄像头，1为后置
       };
       let promise = navigator.mediaDevices.getUserMedia(constraints);
       promise.then(stream => {
